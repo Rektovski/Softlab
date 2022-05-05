@@ -1,0 +1,74 @@
+body {
+    background-color: midnightblue;
+    border-radius: 15px;
+}
+
+#head {
+    display: flex;
+    margin-top: 50px;
+}
+
+img {
+    width: 150px;
+    height: 150px;
+}
+
+h1 {
+    border-radius: 15px 15px 0 0;
+    margin: auto;
+    color: white;
+    font-weight: bolder;
+    font-style: italic;
+    font-size: 80px;
+    text-align: center;
+    background-color: darkslateblue;
+    width: 50%;
+}
+
+section {
+    margin-left: 30px;
+}
+
+nav a {
+    color: saddlebrown;
+    font-size: 25px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: -20px;
+}
+
+nav a:hover {
+    color: greenyellow;
+}
+
+.undernavtext {
+    text-align: justify;
+}
+
+article {
+    font-size: 17px;
+}
+
+#ac {
+    display: flex;
+    background-color: white;
+    margin: auto;
+    width: 50%;
+}
+
+#lipsum {
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-right: 30px;
+}
+
+footer {
+    background-color: saddlebrown;
+    color: white;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 0 0 15px 15px;
+}
