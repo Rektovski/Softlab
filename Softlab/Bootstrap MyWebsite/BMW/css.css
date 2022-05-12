@@ -1,0 +1,21 @@
+img {
+    width: 200px;
+    height: 200px;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.aside-text {
+    text-align: justify;
+}
+
+#card {
+    border-radius: 51px 51px 51px 51px;
+    margin: 200px;
+}
+
+footer {
+    text-align: center;
+}
