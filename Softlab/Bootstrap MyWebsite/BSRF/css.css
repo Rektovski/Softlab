@@ -1,0 +1,12 @@
+textarea {
+    resize: vertical;
+    max-height: 200px;
+}
+
+.odd {
+    padding: 5px;
+}
+
+form {
+    border-radius: 51px;
+}
