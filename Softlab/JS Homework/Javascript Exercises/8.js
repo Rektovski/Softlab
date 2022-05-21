@@ -1,6 +1,16 @@
-function maximal(a,b){
-    if(a>=b)return a;
-    if(b>a)return b;
+function compare(a,b){
+    a>=b ? console.log(a) : console.log(b);
 }
 
-console.log(maximal(3,2));
+compare(3,4);
+
+
+
+/*
+* function compare(a,b){
+*   if(a>=b)return a;
+*   return b;
+* }
+*
+* console.log(compare(3,4));
+* */

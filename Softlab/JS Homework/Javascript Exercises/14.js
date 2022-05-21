@@ -1,6 +1,5 @@
-function isString(n){
-    if(typeof(n)=="string")return true;
-    return false;
+function isString(s) {
+    return typeof s === "string";
 }
 
 console.log(isString("12"));
