@@ -8,7 +8,6 @@ console.log(arr.join(''));
 
 let ans="\"";
 for(i=0;arr[i];++i){
-    if(arr.length-1==i)ans+=arr[i]+"\"";
-    else ans+=arr[i]+", ";
+    arr.length-1===i ? ans+=arr[i]+"\"" : ans+=arr[i]+", ";
 }
 console.log(ans);

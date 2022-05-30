@@ -1,8 +1,8 @@
-i=1;
+let i=1;
 
-const setID= setInterval(fun, 200);
+const setID = setInterval(fun, 20);
 
 function fun() {
-    if(i++==5)clearInterval(setID);
+    if(i++===5)clearInterval(setID);
     console.log(new Date);
 }

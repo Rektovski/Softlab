@@ -5,4 +5,9 @@ function fun(s) {
     return s.includes('?');
 }
 
-console.log(fun(12));
+
+try{
+    console.log(fun(12));
+}catch (err){
+    console.log(err);
+}

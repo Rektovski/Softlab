@@ -1,8 +1,8 @@
 function compare(a,b){
-    a>=b ? console.log(a) : console.log(b);
+    return a>b;
 }
 
-compare(3,4);
+console.log(compare(3,4));
 
 
 
