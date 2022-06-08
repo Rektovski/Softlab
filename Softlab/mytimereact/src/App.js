@@ -1,4 +1,4 @@
-import Timer from "./Timer/timer";
+import Timer from "./timer/Timer";
 
 function App() {
   return (
