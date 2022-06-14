@@ -5,7 +5,7 @@ import result from "./Card";
 import Album from "./Album";
 
 function Gallery(){
-    const [Albums, setAlbums ] = useState([]);
+    const [albums, setAlbums ] = useState([]);
     const [show,setShow] = useState(false);
     const [currentAlbum,setCurrentAlbum] = useState('');
 
@@ -19,11 +19,11 @@ function Gallery(){
     return (
         <Container>
             <Row>
-                {Albums.map((Album)=>(
-                    <Col key={Album.id} sm={12} md={6} lg={4}>
+                {albums.map((album)=>(
+                    <Col key={album.id} sm={12} md={6} lg={4}>
                         <result.ForAlbums
-                            title={Album.title}
-                            albumId={Album.id}
+                            title={album.title}
+                            albumId={album.id}
                             onClick={() => {
                                 setCurrentAlbum(Album.id);
                                 setShow(true);
@@ -33,11 +33,11 @@ function Gallery(){
                 ))}
             </Row>
 
-            <Album
+            {/*<Album
                 show={show}
                 onHide={()=>{setShow(false)}}
                 albumId={currentAlbum}
-            />
+            />*/}
         </Container>
     );
 }

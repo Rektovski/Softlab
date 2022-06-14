@@ -1,4 +1,4 @@
-import {Modal, Button, Row, Col} from "react-bootstrap";
+import {Modal, Button, Row, Col, ModalTitle} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import result from "./Card";
@@ -14,19 +14,19 @@ export default function Album(props) {
             .then((response) => {
                 setPhotos(response.data[props.albumId]);
             })
-    }, [])
+    }, [props.albumId])
 
     return (
         <>
             <Modal {...props}>
                 <Modal.Header closeButton>
-                    <Modal.title>
+                    <ModalTitle>
                         {props.title}
-                    </Modal.title>
+                    </ModalTitle>
                 </Modal.Header>
                 <Modal.Body>
                     <Row>
-                        {photos.map((photo)=>{
+                        {photos.map((photo)=>(
                             <Col key={photo.id} sm={12} md={6} lg={3}>
                                 <result.ForPhotos
                                     title={photo.title}
@@ -37,7 +37,7 @@ export default function Album(props) {
                                     }}
                                 />
                             </Col>
-                        })}
+                        ))}
                     </Row>
                 </Modal.Body>
                 <Modal.Footer>
