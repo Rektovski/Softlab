@@ -6,19 +6,20 @@ import Photo from './Photo';
 
 export default function Album(props) {
     const [photos, setPhotos] = useState([]);
+    const [photoName,setPhotoName] = useState('');
     const [showPhotoModal, setShowPhotoModal] = useState(false);
     const [currentPhotoUrl, setCurrentPhotoUrl] = useState('');
 
     useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/photos')
+        axios.get(`https://jsonplaceholder.typicode.com/photos?albumId=${props.album}`)
             .then((response) => {
-                setPhotos(response.data[props.albumId]);
+                setPhotos(response.data);
             })
-    }, [props.albumId])
+    }, [props.album])
 
     return (
         <>
-            <Modal {...props}>
+            <Modal size={"xl"} sm={12} md={6} lg={6} className={"bg-secondary bg-opacity-50"} {...props}>
                 <Modal.Header closeButton>
                     <ModalTitle>
                         {props.title}
@@ -27,13 +28,14 @@ export default function Album(props) {
                 <Modal.Body>
                     <Row>
                         {photos.map((photo)=>(
-                            <Col key={photo.id} sm={12} md={6} lg={3}>
+                            <Col key={photo.id} sm={12} md={6} lg={6}>
                                 <result.ForPhotos
                                     title={photo.title}
-                                    url={photo.url}
+                                    url={photo.thumbnailUrl}
                                     onClick={()=>{
-                                        setCurrentPhotoUrl(photo.thumbnail);
+                                        setCurrentPhotoUrl(photo.url);
                                         setShowPhotoModal(true);
+                                        setPhotoName(photo.title);
                                     }}
                                 />
                             </Col>
@@ -50,7 +52,8 @@ export default function Album(props) {
             <Photo
                 show={showPhotoModal}
                 onHide={()=>{setShowPhotoModal(false)}}
-                thumbnail={currentPhotoUrl}
+                url={currentPhotoUrl}
+                title={photoName}
             />
         </>
     );

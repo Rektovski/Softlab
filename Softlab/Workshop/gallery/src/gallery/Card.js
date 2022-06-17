@@ -13,8 +13,8 @@ function ForAlbums(props){
 
 function ForPhotos(props){
     return (
-        <Card {...props} role={'button'} className={'text-center border-5 border-dark m-5'}>
-            <Card.Body >
+        <Card style={{height: 500, borderRadius: 50, backgroundColor: "cyan"}} {...props} role={'button'} className={'text-center border-5 border-dark m-5 p-5'}>
+            <Card.Body className={'d-block'}>
                 <CardImg src={props.url} alt={`photos's url`}/>
                 <Card.Text>{props.title}</Card.Text>
             </Card.Body>

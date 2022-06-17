@@ -1,4 +1,4 @@
-import {Container, Row, Col} from "react-bootstrap";
+import {Row, Col, Container} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import result from "./Card";
@@ -25,7 +25,7 @@ function Gallery(){
                             title={album.title}
                             albumId={album.id}
                             onClick={() => {
-                                setCurrentAlbum(Album.id);
+                                setCurrentAlbum(album.id);
                                 setShow(true);
                             }}
                         />
@@ -33,11 +33,11 @@ function Gallery(){
                 ))}
             </Row>
 
-            {/*<Album
+            <Album
                 show={show}
                 onHide={()=>{setShow(false)}}
-                albumId={currentAlbum}
-            />*/}
+                album={currentAlbum}
+            />
         </Container>
     );
 }
