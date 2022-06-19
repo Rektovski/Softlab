@@ -14,7 +14,7 @@ export default function Main() {
     const [values, setValues] = useState(startingValues);
 
     // for getting data from server
-    const [infoFromServer,setInfoFromServer] = useState([]);
+    const [infoFromServer,setInfoFromServer] = useState({});
 
     useEffect(()=>{
         axios.get('http://localhost/posts')
@@ -42,14 +42,15 @@ export default function Main() {
     }
 
     // onUpdate{put}
-    // todo line: 97
-    const put = async () => {
-        if(!infoFromServer.userId){
+    // todo line: 112
+    const put = async (event) => {
+        // We have to check whether the userId we've inputted is available at server before updated post.
+        /*if(infoFromServer){
             console.log('There is no such userId');
             return false;
-        }
+        }*/
         await axios.put(`https://localhost/posts/${values.id}`,values);
-        console.log(`Post #${values.id} has been updated`);
+       // console.log(`Post #${value.userId} has been updated`);
     }
 
     return (
