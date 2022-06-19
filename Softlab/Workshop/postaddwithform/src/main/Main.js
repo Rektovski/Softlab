@@ -2,7 +2,10 @@ import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import axios from "axios";
 
+
 export default function Main() {
+    const [check,setCheck] = useState(false);
+
     const startingValues = {
         userId: '',
         id: '',
@@ -21,7 +24,7 @@ export default function Main() {
             .then((res)=>{
                 setInfoFromServer(res.data);
             })
-    },[infoFromServer])
+    },[check])
 
     //onReset
     const resetValues = () => {
@@ -39,6 +42,7 @@ export default function Main() {
         event.preventDefault();
         await axios.post('http://localhost/posts', values);
         console.log(`Post has been submitted.`); // todo why does not ${values} work in console.log()?
+        setCheck(!check)
     }
 
     // onUpdate{put}
