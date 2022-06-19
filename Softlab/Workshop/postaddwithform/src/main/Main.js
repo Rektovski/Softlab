@@ -10,17 +10,18 @@ export default function Main() {
         body: ''
     }
 
+    // for getting current data from the Form to push it into the server
     const [values, setValues] = useState(startingValues);
 
     // for getting data from server
     const [infoFromServer,setInfoFromServer] = useState([]);
 
     useEffect(()=>{
-        axios.get('http://localhost/posts/')
+        axios.get('http://localhost/posts')
             .then((res)=>{
                 setInfoFromServer(res.data);
             })
-    },[])
+    },[infoFromServer])
 
     //onReset
     const resetValues = () => {
@@ -36,16 +37,15 @@ export default function Main() {
     // onSubmit{post}
     const post = async (event) => {
         event.preventDefault();
-        await axios.post('http://localhost/posts/', values);
+        await axios.post('http://localhost/posts', values);
         console.log(`Post has been submitted.`); // todo why does not ${values} work in console.log()?
     }
 
     // onUpdate{put}
     // todo line: 97
-    const put = async (event) => {
-        event.preventDefault();
-        if(values.id !== infoFromServer.id || values.userId !== infoFromServer.id){
-            console.log('There is no such id or userId');
+    const put = async () => {
+        if(!infoFromServer.userId){
+            console.log('There is no such userId');
             return false;
         }
         await axios.put(`https://localhost/posts/${values.id}`,values);
@@ -106,9 +106,9 @@ export default function Main() {
                     </Col>
                 </Row>
                 <div className={'d-flex p-1 rounded justify-content-end bg-light'}>
-                    <Button className={'m-1'} variant={'danger'} type={'reset'}>Reset</Button>
-                    <Button className={'m-1'} variant={'success'} type={'submit'}>Post</Button>
-                    <Button className={'m-1'} variant={'success'} type={'button'} disabled={true}>Update</Button>
+                    <Button className={'m-1'} variant={'danger'} type={'reset'}>Reset Form</Button>
+                    <Button className={'m-1'} variant={'success'} type={'submit'}>Add Post</Button>
+                    <Button className={'m-1'} variant={'success'} type={'button'} onClick={put}>Update Post</Button>
                 </div>
             </Form>
         </Container>
