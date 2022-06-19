@@ -44,8 +44,9 @@ export default function Main() {
     // todo line: 97
     const put = async (event) => {
         event.preventDefault();
-        for(let key in values){
-            if(values[key] !== infoFromServer[key])return false;
+        if(values.id !== infoFromServer.id || values.userId !== infoFromServer.id){
+            console.log('There is no such id or userId');
+            return false;
         }
         await axios.put(`https://localhost/posts/${values.id}`,values);
         console.log(`Post #${values.id} has been updated`);
@@ -107,7 +108,7 @@ export default function Main() {
                 <div className={'d-flex p-1 rounded justify-content-end bg-light'}>
                     <Button className={'m-1'} variant={'danger'} type={'reset'}>Reset</Button>
                     <Button className={'m-1'} variant={'success'} type={'submit'}>Post</Button>
-                    <Button className={'m-1'} variant={'success'} type={'button'}>Update</Button>
+                    <Button className={'m-1'} variant={'success'} type={'button'} disabled={true}>Update</Button>
                 </div>
             </Form>
         </Container>
