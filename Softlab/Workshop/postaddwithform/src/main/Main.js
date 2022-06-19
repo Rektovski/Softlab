@@ -1,5 +1,5 @@
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 export default function Main() {
@@ -11,6 +11,16 @@ export default function Main() {
     }
 
     const [values, setValues] = useState(startingValues);
+
+    // for getting data from server
+    const [infoFromServer,setInfoFromServer] = useState([]);
+
+    useEffect(()=>{
+        axios.get('http://localhost/posts/')
+            .then((res)=>{
+                setInfoFromServer(res.data);
+            })
+    },[])
 
     //onReset
     const resetValues = () => {
@@ -27,21 +37,23 @@ export default function Main() {
     const post = async (event) => {
         event.preventDefault();
         await axios.post('http://localhost/posts/', values);
-        console.log(`Post has been submitted.`); // todo რატომ არ მუშაობს ამ კონსოლში ${values}
+        console.log(`Post has been submitted.`); // todo why does not ${values} work in console.log()?
     }
 
-    // onSubmit{update}
+    // onUpdate{put}
+    // todo line: 97
     const put = async (event) => {
         event.preventDefault();
-        await axios.put(`http://localhost/posts/${values.id}`, values);
-        console.log("Post has been updated")
+        for(let key in values){
+            if(values[key] !== infoFromServer[key])return false;
+        }
+        await axios.put(`https://localhost/posts/${values.id}`,values);
+        console.log(`Post #${values.id} has been updated`);
     }
 
     return (
         <Container className={'mt-2'}>
-            <Form onReset={resetValues} onSubmit={(event) => {
-                event.preventDefault()
-            }} className={'text-center'}>
+            <Form onSubmit={post} onReset={resetValues} className={'text-center'}>
                 <Row className={'mb-2'}>
                     <Col>
                         <Form.Group>
@@ -94,8 +106,8 @@ export default function Main() {
                 </Row>
                 <div className={'d-flex p-1 rounded justify-content-end bg-light'}>
                     <Button className={'m-1'} variant={'danger'} type={'reset'}>Reset</Button>
-                    <Button className={'m-1'} variant={'success'} type={'submit'} onSubmit={post}>Post</Button>
-                    <Button className={'m-1'} variant={'info'} type={'submit'} onSubmit={put}>Update</Button>
+                    <Button className={'m-1'} variant={'success'} type={'submit'}>Post</Button>
+                    <Button className={'m-1'} variant={'success'} type={'button'}>Update</Button>
                 </div>
             </Form>
         </Container>
