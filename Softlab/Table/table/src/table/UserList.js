@@ -1,23 +1,11 @@
 import {Table} from "react-bootstrap";
-import {useEffect, useState} from "react";
-import axios from "axios";
 
-export default function UserList(){
-    const [users, setUsers]=useState([]);
-
-    useEffect(()=>{
-        axios.get('https://jsonplaceholder.typicode.com/users')
-            .then((response)=>{
-                setUsers(response.data);
-            })
-    },[])
-
+export default function UserList({data=[]}) {
     return (
         <>
             <Table>
                 <thead>
                 <tr>
-                    <th>#</th>
                     <th>id</th>
                     <th>name</th>
                     <th>username</th>
@@ -26,9 +14,8 @@ export default function UserList(){
                 </thead>
                 <tbody>
                 {
-                    users.map((user,index=1)=>(
+                    data.map((user) => (
                         <tr key={user.id}>
-                            <td>{++index}</td>
                             <td>{user.id}</td>
                             <td>{user.name}</td>
                             <td>{user.username}</td>

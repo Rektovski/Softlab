@@ -1,8 +1,7 @@
 import {Button, Col, Form, Row} from "react-bootstrap";
 import {useState} from "react";
-import axios from "axios";
 
-export default function SearchForm() {
+export default function SearchForm({onSubmit}) {
     const startingValues = {
         name: '',
         username: '',
@@ -17,11 +16,20 @@ export default function SearchForm() {
 
     const lastChange = async (event) => {
         event.preventDefault();
-        console.log(values);
-        const res = await axios.get('https://jsonplaceholder.typicode.com/users', {
-            params: values
-        });
-        console.log(res.data);
+        const params = giveDataBaseInfoFromInputtedValuesThatIsNotEmpty(values);
+        onSubmit(params);
+    }
+
+    const giveDataBaseInfoFromInputtedValuesThatIsNotEmpty = (values) => {
+        // If any kind of input is empty string like "" then we mustn't push it into the database to ask is it in or not.
+        // Because database will search that empty value in the keys with key values that you asked. And it will not find it.
+        // If you know name and you want to find user with it then you have to ask only name to find it right?
+        // For example person is suspect in crime. Police asks you how suspect looks like? You know that he has blue cap
+        // but you said that he has green cap. So this information is already not only incorrect, its extra too.
+        return Object.entries(values).reduce((object, [key, value]) => {
+            if (value) object[key] = value;
+            return object;
+        }, {});
     }
 
     const handleChange = (event) => {
