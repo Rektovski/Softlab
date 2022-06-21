@@ -10,7 +10,7 @@ export default function DeleteRequestModalWithYesOrNo(props) {
     return (
         <Modal {...props} className={'bg-info bg-opacity-50'}>
             <ModalHeader closeButton>
-                <ModalTitle>Are you sure you wanna feuer frei the post?</ModalTitle>
+                <ModalTitle>Are you sure you wanna delete the post?</ModalTitle>
             </ModalHeader>
             <ModalBody>
                 <Button variant={'success'} className={'mx-2'} type={'button'}
