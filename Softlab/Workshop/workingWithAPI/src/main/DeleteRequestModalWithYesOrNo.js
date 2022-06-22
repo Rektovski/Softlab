@@ -5,8 +5,9 @@ import cremationImage from './images/cremation.jpg';
 export default function DeleteRequestModalWithYesOrNo(props) {
     const deletePost = async (id) => {
         await axios.delete(`http://localhost:80/posts/${id}`)
-            .then(props.onHide);
-        props.onClick();
+            .then(props.onHide); // Delete Post and Close Modal
+
+        props.onClick(); // After post was deleted page will not refresh, but we will get new data list.
     }
 
     return (

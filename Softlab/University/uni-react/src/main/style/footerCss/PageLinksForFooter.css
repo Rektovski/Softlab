@@ -1,0 +1,11 @@
+a {
+    color: white;
+}
+
+a:hover {
+    color: khaki;
+}
+
+ul {
+    list-style: none;
+}
