@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import DeleteRequestModalWithYesOrNo from "./DeleteRequestModalWithYesOrNo";
 
-export default function Database({sensor}) {
+export default function Database({sensor,dataListRefresh}) {
     const [dataBase, setDataBase] = useState([]);
-    const [currentId, setCurrentId] = useState('');
+    const [currentData, setCurrentData] = useState('');
     const [show, setShow] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,6 @@ export default function Database({sensor}) {
                 setDataBase(res.data);
             })
     }, [sensor]);
-
 
     return (
         <>
@@ -41,7 +40,7 @@ export default function Database({sensor}) {
                                     type={'button'}
                                     onClick={
                                         () => {
-                                            setCurrentId(data.id);
+                                            setCurrentData(data);
                                             setShow(true);
                                         }
                                     }
@@ -56,7 +55,8 @@ export default function Database({sensor}) {
             <DeleteRequestModalWithYesOrNo
                 show={show}
                 onHide={()=>{setShow(false)}}
-                id={currentId}
+                data={currentData}
+                onClick={dataListRefresh}
             />
         </>
     );

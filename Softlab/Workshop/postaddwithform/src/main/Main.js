@@ -13,7 +13,7 @@ export default function Main() {
     return (
         <Container>
             <PostAddingModal onSubmit={reverseCheck}/>
-            <Database sensor={check}/>
+            <Database sensor={check} dataListRefresh={reverseCheck}/>
         </Container>
     );
 }

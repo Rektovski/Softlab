@@ -45,8 +45,9 @@ export default function PostAddingModal({onSubmit}) {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title className={'text-center'}>Fill the blank to add the post into the
-                        database</Modal.Title>
+                    <Modal.Title className={'text-center'}>
+                        Fill the blank to add the post into the database
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={addPost}>
@@ -60,7 +61,7 @@ export default function PostAddingModal({onSubmit}) {
                             />
                         </Form.Group>
                         <Form.Group className={'pb-2'}>
-                            <FormLabel className={'d-flex justify-content-end mx-2'}>Title</FormLabel>
+                            <FormLabel className={'mx-2'}>Title</FormLabel>
                             <FormControl
                                 placeholder={'Enter your title'}
                                 name={'title'}
@@ -71,7 +72,13 @@ export default function PostAddingModal({onSubmit}) {
                         <Form.Group>
                             <FormLabel className={'pb-2 mx-2'}>Post</FormLabel>
                             <FormControl
-                                placeholder={'Enter your body'}
+                                as={'textarea'}
+                                style={{
+                                    resize: 'vertical',
+                                    minHeight: 75,
+                                    maxHeight: 150,
+                                }}
+                                placeholder={'Enter your Post'}
                                 name={'body'}
                                 value={data.body}
                                 onChange={getDataFromInput}
