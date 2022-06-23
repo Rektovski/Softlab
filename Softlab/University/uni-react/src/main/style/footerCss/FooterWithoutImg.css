@@ -1,7 +1,6 @@
 .footer_head {
-    position: fixed;
-    bottom: 0;
-    padding-bottom: 5px;
+    margin-top: 200px;
+    bottom: 5px;
     width: 100%;
     z-index: 1;
     color: #FFFFFF;

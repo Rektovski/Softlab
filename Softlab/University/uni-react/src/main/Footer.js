@@ -6,14 +6,15 @@ import FooterImg from './style/footerCss/FooterImg.css';
 
 export default function Footer() {
     return (
-        <div >
+        < >
             <div
-                class={'footer_head'}
+                className={'footer_head'}
                 style={FooterWithoutImg}>
                 <PageLinksForFooter/>
                 <LastTextOfFooter/>
             </div>
-            <img className={'footer_end'} style={FooterImg} src={image} alt={'footerCss background foto'}/>
-        </div>
+            {/* todo Make this foto on background with above components and make it responsive*/}
+            {/*<img className={'footer_end'} style={FooterImg} src={image} alt={'footerCss background foto'}/>*/}
+        </>
     );
 }
