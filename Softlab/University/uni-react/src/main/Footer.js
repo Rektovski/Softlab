@@ -6,7 +6,7 @@ import FooterImg from './style/footerCss/FooterImg.css';
 
 export default function Footer() {
     return (
-        < >
+        <>
             <div
                 className={'footer_head'}
                 style={FooterWithoutImg}>

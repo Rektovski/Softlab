@@ -35,7 +35,7 @@ export default function Aside() {
                         est laborum.
                     </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item eventKey="1">
+                <Accordion.Item eventKey="2">
                     <Accordion.Header>Accordion Item #2</Accordion.Header>
                     <Accordion.Body className={'bg-secondary bg-opacity-50'}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -47,7 +47,7 @@ export default function Aside() {
                         est laborum.
                     </Accordion.Body>
                 </Accordion.Item>
-                <Accordion.Item eventKey="1">
+                <Accordion.Item eventKey="3">
                     <Accordion.Header>Accordion Item #2</Accordion.Header>
                     <Accordion.Body className={'bg-secondary bg-opacity-50'}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod

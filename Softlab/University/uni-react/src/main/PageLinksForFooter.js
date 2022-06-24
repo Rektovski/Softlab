@@ -6,8 +6,8 @@ import {FaFacebook, FaFacebookMessenger, FaTwitter} from "react-icons/fa";
 
 export default function PageLinksForFooter() {
     return (
-        <Container className={'bg-info rounded'}>
-            <Row className={'g-2'}>
+        <Container className={'bg-info rounded mb-1'}>
+            <Row className={'g-2 '}>
                 <Col sm={12} md={6} lg={3} className={''}>
                     <Card style={{backgroundColor: "rgba(52, 52, 52, 0.4)"}}>
                         <CardHeader className={'text-center'}>

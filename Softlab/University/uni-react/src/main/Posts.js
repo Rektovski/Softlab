@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Table} from "react-bootstrap";
-import PostStyle from './style/main/post.css';
+import PostStyle from './style/mainCss/post.css';
 
 export default function Posts() {
     const [posts, setPosts] = useState([]);
