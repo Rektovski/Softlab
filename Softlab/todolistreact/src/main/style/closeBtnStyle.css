@@ -1,0 +1,8 @@
+.closeBtnStyle {
+    border-radius: 50px;
+    color: #ffffff;
+}
+
+.closeBtnStyle:hover {
+    color: #ffe887;
+}
