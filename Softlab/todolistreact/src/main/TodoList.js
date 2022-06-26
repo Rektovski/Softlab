@@ -6,6 +6,8 @@ import closeBtnStyle from './style/closeBtnStyle.css';
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
+    const [showHideButton, setShowHideButton] = useState(true);
+    const [counter, setCounter] = useState(0);
 
     const saveNewTask = (event) => {
         setNewTask(event.target.value);
@@ -20,7 +22,14 @@ export default function TodoList() {
         }
     }
 
-    const toggleDone = (id) => (event) => {
+    const toggleDone =  (id) => (event) => {
+        // if counter state is zero, then "delete checked" Button will be hidden. Otherwise, it'll not.
+        if(event.target.checked)setCounter(counter + 1)
+        else if(!event.target.checked && !counter)setCounter(0);
+        else if(!event.target.checked)setCounter(counter - 1);
+        counter ? setShowHideButton(false) : setShowHideButton(true);
+
+
         setTasks((prevState) => {
             const task = prevState.find((object) => object.id === id);
             task.done = event.target.checked;
@@ -28,15 +37,15 @@ export default function TodoList() {
         })
     }
 
-    const deleteTask = (index) => () => {
-        setTasks((prevState) => {
-            prevState.pop();
-            return [...prevState];
-        })
+    const deleteTask = (id) => () => {
+        const missions = tasks.filter((task) => task.id !== id);
+        setTasks(missions);
+        return tasks.sort((a, b) => Number(a.done) - Number(b.done));
     }
 
     return (
         <Container className={'border border-rounded mt-3'}>
+            <h1 className={'text-center'}>Todo List</h1>
             <Form onSubmit={addNewTask} onClick={addNewTask}>
                 <InputGroup className="my-3">
                     <FormControl
@@ -53,10 +62,9 @@ export default function TodoList() {
                 </InputGroup>
             </Form>
 
-
             <ListGroup className={'mb-3 border border-rounded'}>
                 {
-                    tasks.map((task, index) => (
+                    tasks.map((task) => (
                         <ListGroup.Item key={task.id} className={'d-flex align-items-center'}>
                             <FormCheck onChange={toggleDone(task.id)} className={'me-3'}/>
                             {
@@ -71,7 +79,7 @@ export default function TodoList() {
                                 style={closeBtnStyle}
                                 className={'closeBtnStyle'}
                                 type={'button'}
-                                onClick={deleteTask(index)}
+                                onClick={deleteTask(task.id)}
                             >
                                 <DeleteButton/>
                             </Button>
@@ -79,6 +87,10 @@ export default function TodoList() {
                     ))
                 }
             </ListGroup>
+            <div className={'d-flex mb-3'}>
+                <div className={'flex-fill'}></div>
+                <Button hidden={showHideButton}>Deleted checked</Button>
+            </div>
         </Container>
     );
 }
