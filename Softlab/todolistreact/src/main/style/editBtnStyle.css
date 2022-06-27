@@ -1,0 +1,8 @@
+.editBtnStyle {
+    border-radius: 50px;
+    color: #00abff;
+}
+
+.editBtnStyle:hover {
+    color: #d6f6ff;
+}

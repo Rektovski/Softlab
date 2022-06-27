@@ -1,13 +1,17 @@
 import {Button, Container, Form, FormCheck, FormControl, InputGroup, ListGroup} from "react-bootstrap";
-import {FaWindowClose as DeleteButton} from 'react-icons/fa';
-import {useState} from "react";
+import {FaRegEdit as Edit, FaWindowClose as DeleteButton} from 'react-icons/fa';
+import {useEffect, useState} from "react";
 import closeBtnStyle from './style/closeBtnStyle.css';
+import editBtnStyle from './style/editBtnStyle.css';
+import ModalForEditing from "./ModalForEditing";
 
 export default function TodoList() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState('');
     const [showHideButton, setShowHideButton] = useState(true);
     const [counter, setCounter] = useState(0);
+    const [show, setShow] = useState(false);
+    const [currentTaskId, setCurrentTaskId] = useState('');
 
     const saveNewTask = (event) => {
         setNewTask(event.target.value);
@@ -22,12 +26,12 @@ export default function TodoList() {
         }
     }
 
-    const toggleDone =  (id) => (event) => {
+    const toggleDone = (id) => (event) => {
         // if counter state is zero, then "delete checked" Button will be hidden. Otherwise, it'll not.
-        if(event.target.checked)setCounter(counter + 1)
-        else if(!event.target.checked && !counter)setCounter(0);
-        else if(!event.target.checked)setCounter(counter - 1);
-        counter ? setShowHideButton(false) : setShowHideButton(true);
+        // event.target.checked ? setCounter(counter + 1) : setCounter(counter - 2);
+        if (event.target.checked) setCounter(counter + 1);
+        else if (!event.target.checked && !counter) setCounter(0);
+        else if (!event.target.checked) setCounter(counter - 1);
 
 
         setTasks((prevState) => {
@@ -40,12 +44,34 @@ export default function TodoList() {
     const deleteTask = (id) => () => {
         const missions = tasks.filter((task) => task.id !== id);
         setTasks(missions);
-        return tasks.sort((a, b) => Number(a.done) - Number(b.done));
+        return tasks;
     }
+
+    const deleteChecked = () => {
+        const notCheckedTasks = tasks.filter((mission) => !mission.done);
+        setTasks(notCheckedTasks);
+        return tasks;
+    }
+
+    const edit = ({id, newTask}) => {
+        setTasks((prevState) => {
+            const task = prevState.find((object) => object.id === id);
+            task.task = newTask;
+            {/*todo Error in console */
+            }
+            return [...prevState];
+        })
+    }
+
+    useEffect(() => {
+        counter
+            ? setShowHideButton(false)
+            : setShowHideButton(true);
+    }, [counter]);
 
     return (
         <Container className={'border border-rounded mt-3'}>
-            <h1 className={'text-center'}>Todo List</h1>
+            <h1 className={'text-center'}>To-Do List</h1>
             <Form onSubmit={addNewTask} onClick={addNewTask}>
                 <InputGroup className="my-3">
                     <FormControl
@@ -75,9 +101,21 @@ export default function TodoList() {
                                 )
                             }
                             <Button
+                                variant={'outline-primary'}
+                                style={editBtnStyle}
+                                className={'editBtnStyle'}
+                                type={'button'}
+                                onClick={() => {
+                                    setCurrentTaskId(task.id);
+                                    setShow(true);
+                                }}
+                            >
+                                <Edit/>
+                            </Button>
+                            <Button
                                 variant={'danger'}
                                 style={closeBtnStyle}
-                                className={'closeBtnStyle'}
+                                className={'closeBtnStyle mx-2'}
                                 type={'button'}
                                 onClick={deleteTask(task.id)}
                             >
@@ -89,8 +127,17 @@ export default function TodoList() {
             </ListGroup>
             <div className={'d-flex mb-3'}>
                 <div className={'flex-fill'}></div>
-                <Button hidden={showHideButton}>Deleted checked</Button>
+                <Button hidden={showHideButton} onClick={deleteChecked}>Delete checked Tasks</Button>
             </div>
+
+            <ModalForEditing
+                show={show}
+                onHide={() => {
+                    setShow(false);
+                }}
+                id={currentTaskId}
+                onSubmit={edit}
+            />
         </Container>
     );
 }
