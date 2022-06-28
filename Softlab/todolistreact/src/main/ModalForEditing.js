@@ -1,4 +1,4 @@
-import {Button, Form, FormControl, InputGroup, Modal} from "react-bootstrap";
+import {Button, Form, FormControl, InputGroup, Modal, ModalHeader, ModalTitle} from "react-bootstrap";
 import {useState} from "react";
 
 export default function ModalForEditing(props) {
@@ -8,7 +8,8 @@ export default function ModalForEditing(props) {
         setNewTask(event.target.value);
     }
 
-    const editTask = (id) => (event) => {
+    const editTask = (id,task) => (event) => {
+        setNewTask(task);
         event.preventDefault();
         if(newTask){
             props.onSubmit({id, newTask});
@@ -16,9 +17,16 @@ export default function ModalForEditing(props) {
         }
     }
 
+    const close = () => {
+        setNewTask('');
+    }
+
     return (
-        <Modal {...props}>
-            <Form onSubmit={editTask(props.id)} className={'m-2'}>
+        <Modal {...props} onClose={close}>
+            <ModalHeader closeButton>
+                <ModalTitle>Editing: "{props.mission.task}"</ModalTitle>
+            </ModalHeader>
+            <Form onSubmit={editTask(props.mission.id)} className={'m-2'}>
                 <InputGroup className="my-3">
                     <FormControl
                         placeholder="Task"

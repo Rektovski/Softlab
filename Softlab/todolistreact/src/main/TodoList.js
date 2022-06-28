@@ -11,7 +11,7 @@ export default function TodoList() {
     const [showHideButton, setShowHideButton] = useState(true);
     const [counter, setCounter] = useState(0);
     const [show, setShow] = useState(false);
-    const [currentTaskId, setCurrentTaskId] = useState('');
+    const [currentTask, setCurrentTask] = useState([]);
 
     const saveNewTask = (event) => {
         setNewTask(event.target.value);
@@ -27,13 +27,9 @@ export default function TodoList() {
     }
 
     const toggleDone = (id) => (event) => {
-        // if counter state is zero, then "delete checked" Button will be hidden. Otherwise, it'll not.
-        // event.target.checked ? setCounter(counter + 1) : setCounter(counter - 2);
         if (event.target.checked) setCounter(counter + 1);
         else if (!event.target.checked && !counter) setCounter(0);
         else if (!event.target.checked) setCounter(counter - 1);
-
-
         setTasks((prevState) => {
             const task = prevState.find((object) => object.id === id);
             task.done = event.target.checked;
@@ -54,13 +50,13 @@ export default function TodoList() {
     }
 
     const edit = ({id, newTask}) => {
+        if(!id)return ;
         setTasks((prevState) => {
             const task = prevState.find((object) => object.id === id);
             task.task = newTask;
-            {/*todo Error in console */
-            }
             return [...prevState];
         })
+        setShow(false);
     }
 
     useEffect(() => {
@@ -72,7 +68,7 @@ export default function TodoList() {
     return (
         <Container className={'border border-rounded mt-3'}>
             <h1 className={'text-center'}>To-Do List</h1>
-            <Form onSubmit={addNewTask} onClick={addNewTask}>
+            <Form onSubmit={addNewTask}>
                 <InputGroup className="my-3">
                     <FormControl
                         placeholder="Task"
@@ -81,6 +77,7 @@ export default function TodoList() {
                         onChange={saveNewTask}
                     />
                     <Button
+                        type={"submit"}
                         variant="outline-secondary"
                     >
                         +
@@ -106,7 +103,7 @@ export default function TodoList() {
                                 className={'editBtnStyle'}
                                 type={'button'}
                                 onClick={() => {
-                                    setCurrentTaskId(task.id);
+                                    setCurrentTask(task);
                                     setShow(true);
                                 }}
                             >
@@ -135,7 +132,7 @@ export default function TodoList() {
                 onHide={() => {
                     setShow(false);
                 }}
-                id={currentTaskId}
+                mission={currentTask}
                 onSubmit={edit}
             />
         </Container>
