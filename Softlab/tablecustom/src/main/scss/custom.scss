@@ -1,0 +1,13 @@
+
+.light {
+  color: #000000;
+  background: aliceblue;
+  primary: #fc0000;
+}
+
+.dark {
+  color: #ffffff;
+  background: #565252;
+}
+
+@import "../../../node_modules/bootstrap/scss/bootstrap";
