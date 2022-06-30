@@ -28,7 +28,7 @@ export default function AddPostModal(props) {
 
     const removeEmptyInputData = (post) => {
         return Object.entries(post).reduce((object, [key, value]) => {
-            if (post[key]) object[key] = value;
+            if (value) object[key] = value;
             return object;
         }, {})
     }
