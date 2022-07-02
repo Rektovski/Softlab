@@ -6,7 +6,6 @@ export default function Layout(){
         <div>
             <Navbar sticky={'top'} bg="primary" variant="dark" className={'bg-opacity-75'} expand="lg">
                 <Container className={'text-center'}>
-                    {/*todo When zooming in or using mobile screen navbar must be as menu*/}
                     <Navbar.Brand href="/" className={'text-center'}>საქართველოს ტექნიკური უნივერსიტეტი</Navbar.Brand>
                     <Nav>
                         <Nav.Link href="http://localhost:3000">მთავარი</Nav.Link>
