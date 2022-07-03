@@ -13,7 +13,7 @@ export default function Main() {
     }, []);
 
     const loadTasks = async () => {
-        await axios.get('http://localhost/todos/')
+        await axios.get('http://localhost:3030/todos/')
             .then((response) => {
                 setNewTasks(response.data);
             })
