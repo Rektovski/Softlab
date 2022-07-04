@@ -73,6 +73,7 @@ export default function Main() {
                 console.log('Id: ', object.id, 'text: ', object.text ,'was deleted');
             })
         await loadTasks();
+        setShow(true);
     }
 
     return (

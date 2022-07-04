@@ -8,12 +8,13 @@ import {FaRegEdit as EditIcon, FaWindowClose as DeleteIcon} from 'react-icons/fa
 export default function Main() {
     const [tasks, setTasks] = useState([]);
     const {loading, setLoading} = useContext(LoadingContext);
+    const [show, setShow] = useState(false); // For button at the end of code. It will delete all checked tasks.
 
     useEffect(() => {
         loadTasks().catch((error) => {
             console.error(error)
         })
-    }, [])
+    }, [show]);
 
     const loadTasks = async () => {
         try {
@@ -29,6 +30,7 @@ export default function Main() {
                     });
                 });
             setLoading(false);
+            tasks.find((task) => task.done) ? setShow(true) : setShow(false);
         } catch (error) {
             console.log(error)
         }
@@ -46,6 +48,7 @@ export default function Main() {
             const undone = prevState.filter((object) => !object.done);
             return [...done, ...undone];
         })
+        tasks.find((task) => task.done) ? setShow(true) : setShow(false);
     }
 
     const handleDelete = async (id) => {
@@ -69,8 +72,21 @@ export default function Main() {
 
     const handleAddPost = async () => {
         const result = window.prompt('Type post');
-        const post = await axios.post('http://localhost:3030/todos/',{text: result, done: false}).catch((error)=>{console.error(error, 'shecdoma moxda chapostvisas')});
+        const post = await axios.post('http://localhost:3030/todos/', {text: result, done: false}).catch((error) => {
+            console.error(error, 'shecdoma moxda chapostvisas')
+        });
         await loadTasks();
+    }
+
+    const deleteAllCheckedTasks = async () => {
+        const promises = tasks
+            .filter((task) => task.done)
+            .map((task) => {
+                return axios.delete(`http://localhost:3030/todos/${task.id}`)
+            })
+        await Promise.all(promises);
+        await loadTasks();
+        setShow(true);
     }
 
     return (
@@ -134,6 +150,21 @@ export default function Main() {
                                         ))
                                     }
                                 </ListGroup>
+                                <div className={'d-flex my-2'}>
+                                    <div className={'flex-fill'}></div>
+                                    {
+                                        show
+                                            ? (
+                                                <Button
+                                                    onClick={deleteAllCheckedTasks}
+                                                    type={'button'}
+                                                >
+                                                    Deleted Checked Tasks
+                                                </Button>
+                                            )
+                                            : ('')
+                                    }
+                                </div>
                             </div>
                         )
                 }
