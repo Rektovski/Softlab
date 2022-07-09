@@ -1,0 +1,11 @@
+.loading {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 99999;
+    display: grid;
+    place-items: center;
+    background-color: rgba(234,240,243,0.5);
+}
