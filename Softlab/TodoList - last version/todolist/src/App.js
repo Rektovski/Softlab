@@ -15,23 +15,23 @@ function App() {
     const [theme, setTheme] = useState('light');
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            axios
-                .get('http://localhost:3030/user', {
-                    headers: {
-                        "Authorization": token
-                    }
-                })
-                .then((response) => {
-                    setUser(response.data)
-                })
-                .catch((error) => {
-                    console.error(error, 'shecdoma moxda aq');
-                })
-        }
-    }, [])
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         axios
+    //             .get('http://localhost:3030/user', {
+    //                 headers: {
+    //                     "Authorization": token
+    //                 }
+    //             })
+    //             .then((response) => {
+    //                 setUser(response.data)
+    //             })
+    //             .catch((error) => {
+    //                 console.error(error, 'shecdoma moxda aq');
+    //             })
+    //     }
+    // }, [])
 
     return (
         <UserContext.Provider value={{user, setUser}}>

@@ -1,16 +1,21 @@
 import {Button, Card, Form} from "react-bootstrap";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import './main/style/authorizationPage.css';
 import axios from "axios";
+import UserContext from "./main/context/UserContext";
 
 export default function AuthorizationPage(){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const {setUser} = useContext(UserContext);
 
-    const login = (event) => {
+    const login = async (event) => {
         event.preventDefault();
-        const {data} = axios.post('http://localhost:3030/login',{username, password});
-        localStorage.setItem('token', data.token);
+        if(username && password) {
+            setUser(username);
+        }
+        // const {data} = await axios.post('http://localhost:3030/login', {username, password});
+        // localStorage.setItem('token', data.token);
         // window.location.reload();
     }
 
