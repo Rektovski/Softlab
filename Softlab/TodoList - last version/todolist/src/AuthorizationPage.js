@@ -4,26 +4,22 @@ import axios from "axios";
 import {useState} from "react";
 
 export default function AuthorizationPage() {
-    const startingUserInfo = {
-        username: '',
-        password: '',
-    }
-
-    const [userInfo, setUserInfo] = useState(startingUserInfo);
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
     const handleChangeUserName = (event) => {
-        setUserInfo({...userInfo, username: event.target.value});
+        setUsername(event.target.value);
     }
 
     const handleChangePassword = (event) => {
-        setUserInfo({...userInfo, password: event.target.value});
+        setPassword(event.target.value);
     }
 
     const authorization = async (event) => {
         event.preventDefault();
-        if(userInfo.username && userInfo.password){
-            const {data} = await axios.post('http://localhost:3030/login', userInfo);
-            localStorage.setItem('token', data.token);
+        if(username && password){
+            const response = await axios.post('http://localhost:3030/login', {username, password});
+            localStorage.setItem('token', response.data.token);
         }
     }
 
@@ -33,11 +29,11 @@ export default function AuthorizationPage() {
                 <Form onSubmit={authorization}>
                     <Form.Group className={'my-2'}>
                         <Form.Label>Username: </Form.Label>
-                        <Form.Control value={userInfo.username} onChange={handleChangeUserName}/>
+                        <Form.Control value={username} onChange={handleChangeUserName}/>
                     </Form.Group>
                     <Form.Group className={'my-2'}>
                         <Form.Label>Password: </Form.Label>
-                        <Form.Control type={'password'} value={userInfo.password} onChange={handleChangePassword}/>
+                        <Form.Control type={'password'} value={password} onChange={handleChangePassword}/>
                     </Form.Group>
                     <div className={'d-flex justify-content-end'}>
                         <Button className={'my-2'} type={'submit'}>Login</Button>

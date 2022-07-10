@@ -38,7 +38,7 @@ function App() {
                                 user ?
                                     (
                                         <Route path={'/'} element={<Layout/>}>
-                                            <Route path={'/'} element={<Main/>}></Route>
+                                            <Route path={'/main'} element={<Main/>}></Route>
                                             <Route path={'*'} element={<ErrorPage/>}></Route>
                                         </Route>
                                     )
