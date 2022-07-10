@@ -1,8 +1,7 @@
 import {Button, Container, Form} from "react-bootstrap";
-import {useContext, useState} from "react";
 import './main/style/authorizationPage.css';
-import UserContext from "./main/context/UserContext";
 import axios from "axios";
+import {useState} from "react";
 
 export default function AuthorizationPage() {
     const startingUserInfo = {
@@ -11,7 +10,6 @@ export default function AuthorizationPage() {
     }
 
     const [userInfo, setUserInfo] = useState(startingUserInfo);
-    const {user, setUser} = useContext(UserContext);
 
     const handleChangeUserName = (event) => {
         setUserInfo({...userInfo, username: event.target.value});
@@ -24,7 +22,7 @@ export default function AuthorizationPage() {
     const authorization = async (event) => {
         event.preventDefault();
         if(userInfo.username && userInfo.password){
-            const {data} = await axios.post('http://localhost:3030/login', {userInfo});
+            const {data} = await axios.post('http://localhost:3030/login', userInfo);
             localStorage.setItem('token', data.token);
         }
     }

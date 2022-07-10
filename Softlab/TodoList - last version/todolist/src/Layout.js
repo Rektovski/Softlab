@@ -32,7 +32,7 @@ export default function Layout(){
                             theme === 'dark' ? <Button variant={'outline-primary'} onClick={handleChangeTheme}><DayIcon/></Button> : <Button variant={'outline-primary'} onClick={handleChangeTheme}><NightIcon/></Button>
                         }
                         <span className={'mx-2'}>or</span>
-                        <Button classname={'mx-2'} variant={'outline-primary'} onClick={handleChangeTheme}><DayLightIcon/></Button>
+                        <Button className={'mx-2'} variant={'outline-primary'} onClick={handleChangeTheme}><DayLightIcon/></Button>
                     </div>
                     <NavDropdown title={user}>
                         <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
