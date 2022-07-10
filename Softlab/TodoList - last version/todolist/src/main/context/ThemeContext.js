@@ -1,9 +1,5 @@
-import React, {useContext} from 'react'
+import React from 'react'
 
 const ThemeContext = React.createContext({})
-
-export function useThemeContext(){
-    return useContext(ThemeContext);
-}
 
 export default ThemeContext;

@@ -1,9 +1,9 @@
 import {Button, Container, FloatingLabel, Form, FormControl, ListGroup} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
-import axios from "axios";
 import {IoIosCheckmarkCircleOutline as AddIcon, IoIosBuild as EditIcon, IoMdTrash as DeleteIcon} from 'react-icons/io'
 import LoadingContext from "../context/LoadingContext";
 import ThemeContext from "../context/ThemeContext";
+import api from "../api/Api";
 
 export default function TodoList() {
     const [newTask, setNewTask] = useState('');
@@ -18,7 +18,7 @@ export default function TodoList() {
     const loadTasks = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:3030/todos/');
+            const response = await api.get('todos/');
             const completed = response.data.filter((task) => task.done);
             const incompleted = response.data.filter((task) => !task.done);
             setTasks([...completed, ...incompleted]);
@@ -40,7 +40,7 @@ export default function TodoList() {
         event.preventDefault();
         startLoading();
         try {
-            await axios.post('http://localhost:3030/todos', {text: newTask, done: false});
+            await api.post('todos', {text: newTask, done: false});
         } catch (error) {
             console.error(error, 'addPost shi moxda error')
         }
@@ -53,7 +53,7 @@ export default function TodoList() {
         const task = tasks.find((task) => task.id === id);
         task.done = event.target.checked;
         try {
-            await axios.put(`http://localhost:3030/todos/${id}`, task)
+            await api.put(`todos/${id}`, task)
         } catch (error) {
             console.error(error, 'toggleDone shi moxda error')
         }
@@ -66,14 +66,14 @@ export default function TodoList() {
         if (result) {
             startLoading();
             task.text = result;
-            await axios.put(`http://localhost:3030/todos/${id}`, task);
+            await api.put(`todos/${id}`, task);
             await loadTasks();
         }
     }
 
     const deleteTask = (id) => async () => {
         startLoading();
-        await axios.delete(`http://localhost:3030/todos/${id}`)
+        await api.delete(`todos/${id}`)
         await loadTasks();
     }
 
@@ -110,7 +110,6 @@ export default function TodoList() {
                                     task.done ? (<del>{task.text}</del>) : (<div>{task.text}</div>)
                                 }
                             </div>
-
                             <Button className={'mx-2'} onClick={editTask(task.id)}>
                                 <EditIcon size={20}/>
                             </Button>

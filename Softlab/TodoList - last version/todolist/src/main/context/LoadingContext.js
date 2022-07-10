@@ -1,9 +1,5 @@
-import React, {useContext} from 'react'
+import React from 'react'
 
 const LoadingContext = React.createContext({});
-
-export function useLoadingContext(){
-    return useContext(LoadingContext);
-}
 
 export default LoadingContext;
