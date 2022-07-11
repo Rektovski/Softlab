@@ -1,0 +1,9 @@
+.imageStyle {
+    height: 200px;
+    width: 200px;
+    border-radius: 25px;
+}
+
+.cardBorder:hover {
+    border-radius: 25px;
+}
