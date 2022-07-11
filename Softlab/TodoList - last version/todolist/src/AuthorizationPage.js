@@ -14,16 +14,24 @@ export default function AuthorizationPage(props) {
             .then((response) => {
                 localStorage.setItem('token', response.data.token);
             })
-            .catch(error=>console.error(error, 'shecdoma moxda monacemta gadagzavnisas. arasworia saxel-paroli'));
-        window.location.reload();
+            .catch(error => {
+                error.message === "Request failed with status code 401" ? props.onError(error.message) : console.error(error);
+            });
+        setTimeout(()=>{
+            window.location.reload();
+        },3000);
     }
 
     return (
         <div className={'centeredLogin'}>
             <Card className={'cardHovering rounded p-5 border border-1 border-info'}>
                 {
-                    props.error && <Alert variant={"danger"}>{props.error.message}</Alert>
+                    // 401 Error Alert
+                    props.onError && props.error === 'Request failed with status code 401' &&
+                    <Alert variant={"danger"}>{'Incorrect details! Auto-Reload in 3 seconds...'}</Alert> ||
+                    localStorage.getItem('token') && <Alert variant={"success"}>{'Connected'}</Alert>
                 }
+
                 <Form onSubmit={login}>
                     <Form.Group className={'m-2'}>
                         <Form.Label className={'m-2'}>Username: </Form.Label>

@@ -5,7 +5,7 @@ import LoadingContext from "./context/LoadingContext";
 import ThemeContext from "./context/ThemeContext";
 import Clock from "./components/forTodoList/Clock";
 
-export default function Main() {
+export default function TodoListWithLocalClock() {
     const {loading} = useContext(LoadingContext);
     const {theme} = useContext(ThemeContext);
 

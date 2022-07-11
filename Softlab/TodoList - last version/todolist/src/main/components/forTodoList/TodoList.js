@@ -32,14 +32,10 @@ export default function TodoList() {
         setNewTask(event.target.value);
     }
 
-    const startLoading = () => {
-        setLoading(true);
-    }
-
     const addPost = async (event) => {
         event.preventDefault();
         if (newTask) {
-            startLoading();
+            setLoading(true);
             try {
                 await api.post('todos', {text: newTask, done: false});
             } catch (error) {
@@ -53,7 +49,7 @@ export default function TodoList() {
     }
 
     const toggleDone = (id) => async (event) => {
-        startLoading();
+        setLoading(true);
         const task = tasks.find((task) => task.id === id);
         task.done = event.target.checked;
         try {
@@ -68,14 +64,18 @@ export default function TodoList() {
         const task = tasks.find((task) => task.id === id);
         const result = window.prompt('Add task', task.text);
         if(result===null){
+            console.log(result)
             // same as 'cancel'
         }
         else if(!result){
             window.alert(`You can't update task with empty text`);
             // result === ''
         }
+        else if(result === task.text) {
+            window.alert(`You tried to edit text with same text. It can't be done!`);
+        }
         else if (result !== task.text) {
-            startLoading();
+            setLoading(true);
             task.text = result;
             await api.put(`todos/${id}`, task);
             await loadTasks();
@@ -83,7 +83,7 @@ export default function TodoList() {
     }
 
     const deleteTask = (id) => async () => {
-        startLoading();
+        setLoading(true);
         await api.delete(`todos/${id}`)
         await loadTasks();
     }

@@ -3,21 +3,23 @@ import {Route, Routes} from "react-router";
 import ErrorPage from "./main/error/ErrorPage";
 import {useEffect, useState} from "react";
 import LoadingContext from "./main/context/LoadingContext";
-import Main from "./main/Main";
 import Layout from "./Layout";
 import ThemeContext from "./main/context/ThemeContext";
 import UserContext from "./main/context/UserContext";
 import AuthorizationPage from "./AuthorizationPage";
 import axios from "axios";
 import Gallery from "./main/components/forGallery/Gallery";
+import Portfolio from "./main/Portfolio";
+import TodoListWithLocalClock from "./main/TodoListWithLocalClock";
 
 function App() {
     const [loading, setLoading] = useState(false);
     const [theme, setTheme] = useState('light');
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        console.log('token is: ', localStorage.getItem('token'));
+        setError('');
         if (localStorage.getItem('token')) {
             axios
                 .get('http://localhost:3030/user', {
@@ -26,13 +28,14 @@ function App() {
                     }
                 })
                 .then((response) => {
-                    console.log(response.data);
                     setUser(response.data);
+                    setTimeout(() => {
+                        localStorage.removeItem('token');
+                        setUser(null);
+                        window.location.replace('http://localhost:3000/');
+                    }, 360000);
                 })
-
-        } else {
-            setUser(null);
-            localStorage.removeItem('token')
+                .catch(error=>console.error(error));
         }
     }, [])
 
@@ -46,14 +49,15 @@ function App() {
                             user ? (
                                 <Routes>
                                     <Route path={'/'} element={<Layout/>}>
-                                        <Route path={'/'} element={<Main/>}></Route>
+                                        <Route path={'/'} element={<Portfolio/>}></Route>
                                         <Route path={'/gallery'} element={<Gallery/>}></Route>
+                                        <Route path={'/todolist'} element={<TodoListWithLocalClock/>}></Route>
                                     </Route>
                                     <Route path={'*'} element={<ErrorPage/>}></Route>
                                 </Routes>
                             ) : (
                                 <Routes>
-                                    <Route path={'*'} element={<AuthorizationPage/>}></Route>
+                                    <Route path={'*'} element={<AuthorizationPage error={error} onError={(error)=>{setError(error)}}/>}></Route>
                                 </Routes>
                             )
                         }
