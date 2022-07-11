@@ -1,34 +1,38 @@
-import {Button, Card, Form} from "react-bootstrap";
-import {useContext, useState} from "react";
-import './main/style/authorizationPage.css';
+import {Alert, Button, Card, Form} from "react-bootstrap";
+import {useState} from "react";
+import './main/style/todolistStyle/authorizationPage.css';
 import axios from "axios";
-import UserContext from "./main/context/UserContext";
 
-export default function AuthorizationPage(){
+export default function AuthorizationPage(props) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const {setUser} = useContext(UserContext);
 
     const login = async (event) => {
         event.preventDefault();
-        if(username && password) {
-            setUser(username);
-        }
-        // const {data} = await axios.post('http://localhost:3030/login', {username, password});
-        // localStorage.setItem('token', data.token);
-        // window.location.reload();
+        await axios
+            .post('http://localhost:3030/login', {username, password})
+            .then((response) => {
+                localStorage.setItem('token', response.data.token);
+            })
+            .catch(error=>console.error(error, 'shecdoma moxda monacemta gadagzavnisas. arasworia saxel-paroli'));
+        window.location.reload();
     }
 
     return (
         <div className={'centeredLogin'}>
             <Card className={'cardHovering rounded p-5 border border-1 border-info'}>
+                {
+                    props.error && <Alert variant={"danger"}>{props.error.message}</Alert>
+                }
                 <Form onSubmit={login}>
                     <Form.Group className={'m-2'}>
                         <Form.Label className={'m-2'}>Username: </Form.Label>
                         <Form.Control
                             placeholder={'Type your username'}
                             value={username}
-                            onChange={(event)=>{setUsername(event.target.value)}}
+                            onChange={(event) => {
+                                setUsername(event.target.value)
+                            }}
                         />
                     </Form.Group>
                     <Form.Group className={'m-2'}>
@@ -37,7 +41,9 @@ export default function AuthorizationPage(){
                             type={'password'}
                             placeholder={'Type your password'}
                             value={password}
-                            onChange={(event)=>{setPassword(event.target.value)}}
+                            onChange={(event) => {
+                                setPassword(event.target.value)
+                            }}
                         />
                     </Form.Group>
                     <div className={'d-flex justify-content-end'}>

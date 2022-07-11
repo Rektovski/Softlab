@@ -1,9 +1,9 @@
-import TodoList from "./components/TodoList";
-import Loading from "./components/Loading";
+import TodoList from "./components/forTodoList/TodoList";
+import Loading from "./components/forTodoList/Loading";
 import {useContext} from "react";
 import LoadingContext from "./context/LoadingContext";
 import ThemeContext from "./context/ThemeContext";
-import Clock from "./components/Clock";
+import Clock from "./components/forTodoList/Clock";
 
 export default function Main() {
     const {loading} = useContext(LoadingContext);

@@ -1,12 +1,16 @@
-import {Card, Container} from "react-bootstrap";
+import {Alert, Card, Container} from "react-bootstrap";
 
-export default function ErrorPage() {
+function ErrorPage(){
     return (
-        <Container className={'m-2 p-2 border border-1 border-danger'}>
-            <Card className={'m-2 p-2 text-center border border-1 border-info'}>
-                <span>This url is incorrect. Try this one: <a href={'http://localhost:3000'}
-                                                              alt={'link of http://localhost:3000'}>link</a></span>
-            </Card>
+        <Container>
+            <Alert variant={'info'} className={'m-2 text-center'}>
+                <Card className={'m-2'}>
+                    <Card.Text>This site is not available cause the URL is incorrect...</Card.Text>
+                    <Card.Text>Try this <a href={'http://localhost:3000/'} style={{color: "blue"}}>one</a></Card.Text>
+                </Card>
+            </Alert>
         </Container>
     );
 }
+
+export default ErrorPage;

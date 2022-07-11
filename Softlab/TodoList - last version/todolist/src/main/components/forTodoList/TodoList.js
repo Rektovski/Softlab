@@ -1,9 +1,9 @@
 import {Button, Container, FloatingLabel, Form, FormControl, ListGroup} from "react-bootstrap";
 import {useContext, useEffect, useState} from "react";
 import {IoIosCheckmarkCircleOutline as AddIcon, IoIosBuild as EditIcon, IoMdTrash as DeleteIcon} from 'react-icons/io'
-import LoadingContext from "../context/LoadingContext";
-import ThemeContext from "../context/ThemeContext";
-import api from "../api/Api";
+import LoadingContext from "../../context/LoadingContext";
+import ThemeContext from "../../context/ThemeContext";
+import api from "../../api/Api";
 
 export default function TodoList() {
     const [newTask, setNewTask] = useState('');
@@ -38,14 +38,18 @@ export default function TodoList() {
 
     const addPost = async (event) => {
         event.preventDefault();
-        startLoading();
-        try {
-            await api.post('todos', {text: newTask, done: false});
-        } catch (error) {
-            console.error(error, 'addPost shi moxda error')
+        if (newTask) {
+            startLoading();
+            try {
+                await api.post('todos', {text: newTask, done: false});
+            } catch (error) {
+                console.error(error, 'addPost shi moxda error')
+            }
+            await loadTasks();
+            setNewTask('');
+        } else {
+            window.alert(`You can't add empty task in todo`);
         }
-        await loadTasks();
-        setNewTask('');
     }
 
     const toggleDone = (id) => async (event) => {
@@ -63,7 +67,14 @@ export default function TodoList() {
     const editTask = (id) => async () => {
         const task = tasks.find((task) => task.id === id);
         const result = window.prompt('Add task', task.text);
-        if (result) {
+        if(result===null){
+            // same as 'cancel'
+        }
+        else if(!result){
+            window.alert(`You can't update task with empty text`);
+            // result === ''
+        }
+        else if (result !== task.text) {
             startLoading();
             task.text = result;
             await api.put(`todos/${id}`, task);
@@ -105,9 +116,18 @@ export default function TodoList() {
                                 checked={task.done}
                                 onChange={toggleDone(task.id)}
                             />
+
+
                             <div className={'flex-fill'}>
                                 {
-                                    task.done ? (<del>{task.text}</del>) : (<div>{task.text}</div>)
+                                    task.done ? (
+                                        <strike style={{color: "red"}}>
+                                            <span
+                                                className={`text-${theme === 'dark' ? 'light' : 'dark'}`}>{task.text}</span>
+                                        </strike>
+                                    ) : (
+                                        <div>{task.text}</div>
+                                    )
                                 }
                             </div>
                             <Button className={'mx-2'} onClick={editTask(task.id)}>

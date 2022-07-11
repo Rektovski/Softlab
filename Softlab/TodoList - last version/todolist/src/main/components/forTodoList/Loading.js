@@ -1,5 +1,5 @@
 import {Spinner} from "react-bootstrap";
-import '../style/loadingcss.css';
+import '../../style/todolistStyle/loadingcss.css';
 
 export default function Loading(){
 

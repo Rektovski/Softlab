@@ -4,6 +4,7 @@ import {useContext} from "react";
 import ThemeContext from "./main/context/ThemeContext";
 import {FaSun as DayIcon, FaRegMoon as NightIcon, FaYinYang as DayLightIcon} from 'react-icons/fa';
 import UserContext from "./main/context/UserContext";
+import {Link} from "react-router-dom";
 
 export default function Layout(){
     const {theme, setTheme} = useContext(ThemeContext);
@@ -14,27 +15,27 @@ export default function Layout(){
     }
 
     const logout = () => {
+        localStorage.removeItem('token');
         setUser(null);
+        console.log('token is: ', localStorage.getItem('token'));
     }
 
     return (
         <div>
-            <Navbar bg={theme} variant={theme}>
+            <Navbar fixed={'top'} bg={theme} variant={theme}>
                 <Container>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+                    <Navbar.Brand href={""} onClick={()=>{window.location.reload()}}>Project</Navbar.Brand>
                     <Nav className="me-auto flex-fill">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
+                        <Nav.Link as={Link} to={''}>ToDo-List</Nav.Link>
+                        <Nav.Link as={Link} to={'/gallery'}>Gallery</Nav.Link>
                         <Nav.Link href="#pricing">Pricing</Nav.Link>
                     </Nav>
-                    <div className={'flex-fill'}>
+                    <div className={''}>
                         {
                             theme === 'dark' ? <Button variant={'outline-primary'} onClick={handleChangeTheme}><DayIcon/></Button> : <Button variant={'outline-primary'} onClick={handleChangeTheme}><NightIcon/></Button>
                         }
-                        <span className={'mx-2'}>or</span>
-                        <Button className={'mx-2'} variant={'outline-primary'} onClick={handleChangeTheme}><DayLightIcon/></Button>
                     </div>
-                    <NavDropdown title={user}>
+                    <NavDropdown title={user.username}>
                         <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Container>
