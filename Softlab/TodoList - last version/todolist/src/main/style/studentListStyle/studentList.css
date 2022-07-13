@@ -1,0 +1,20 @@
+.listHovering:hover {
+    background-color: rgba(178, 178, 168, 0.95);
+}
+
+.field-container {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    width: 100%;
+}
+
+.field-label {
+    margin-left: 40px;
+    width: 20%;
+}
+
+.field-control {
+    display: flex;
+    justify-content: center;
+}

@@ -26,9 +26,9 @@ export default function Gallery() {
     }
 
     return (
-        <div className={`bg-${theme} mb-5`}>
-            <Container className={'my-5'}>
-                <Row className={'g-5 my-5'}>
+        <div className={`bg-${theme} `}>
+            <Container className={'mt-5'}>
+                <Row className={'g-5 mt-5'}>
                     {
                         albums.map((album) => (
                             <Col sm={3} key={album.id}>

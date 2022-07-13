@@ -7,3 +7,7 @@
 .cardBorder:hover {
     border-radius: 25px;
 }
+
+.firstDiv {
+    height: 100vh;
+}

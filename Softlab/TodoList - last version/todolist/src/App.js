@@ -1,6 +1,6 @@
 import {BrowserRouter} from "react-router-dom";
 import {Route, Routes} from "react-router";
-import ErrorPage from "./main/error/ErrorPage";
+import ErrorPage from "./main/components/error/ErrorPage";
 import {useEffect, useState} from "react";
 import LoadingContext from "./main/context/LoadingContext";
 import Layout from "./Layout";
@@ -9,8 +9,13 @@ import UserContext from "./main/context/UserContext";
 import AuthorizationPage from "./AuthorizationPage";
 import axios from "axios";
 import Gallery from "./main/components/forGallery/Gallery";
-import Portfolio from "./main/Portfolio";
-import TodoListWithLocalClock from "./main/TodoListWithLocalClock";
+import Portfolio from "./main/components/forPortfolio/Portfolio";
+import TodoListWithLocalClock from "./main/components/forTodoList/TodoListWithLocalClock";
+import Website from "./main/components/forWebsite/Website";
+import Timer from "./main/components/forTimer/Timer";
+import Counter from "./main/components/forCounter/Counter";
+import RegistrationForm from "./main/components/forStudentRegistration/RegistrationForm";
+import StudentList from "./main/components/forStudentList/StudentList";
 
 function App() {
     const [loading, setLoading] = useState(false);
@@ -52,6 +57,11 @@ function App() {
                                         <Route path={'/'} element={<Portfolio/>}></Route>
                                         <Route path={'/gallery'} element={<Gallery/>}></Route>
                                         <Route path={'/todolist'} element={<TodoListWithLocalClock/>}></Route>
+                                        <Route path={'/website'} element={<Website/>}></Route>
+                                        <Route path={'/timer'} element={<Timer/>}></Route>
+                                        <Route path={'/counter'} element={<Counter/>}></Route>
+                                        <Route path={'/students'} element={<StudentList/>}></Route>
+                                        <Route path={'/signup'} element={<RegistrationForm/>}></Route>
                                     </Route>
                                     <Route path={'*'} element={<ErrorPage/>}></Route>
                                 </Routes>
