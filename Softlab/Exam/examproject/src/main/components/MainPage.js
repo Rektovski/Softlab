@@ -12,7 +12,7 @@ export default function MainPage() {
     const {allUsers} = useContext(AllUsersContext);
     const [show, setShow] = useState(false);
     const [chatUser, setChatUser] = useState({});
-    const {anotherUser, setAnotherUser} = useContext(AnotherUserContext);
+    const {setAnotherUser} = useContext(AnotherUserContext);
 
     const logout = () => {
         localStorage.removeItem('token');

@@ -10,8 +10,6 @@ import api from "./main/api/Api";
 import ChatContext from "./main/context/ChatContext";
 import AnotherUserContext from "./main/context/AnotherUserContext";
 
-let timeId;
-
 function App() {
     const [user, setUser] = useState(false);
     const [allUsers, setAllUsers] = useState([]);

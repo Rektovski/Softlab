@@ -17,12 +17,6 @@ export default function LoginPage() {
             .catch((error) => {
                 console.error(error, "shecdoma moxda user parolis gadagzavnisas")
             });
-        /*.catch(error => {
-            error.message === "Request failed with status code 401" ? props.onError(error.message) : console.error(error);
-        });*/
-        // setTimeout(() => {
-        //     window.location.reload();
-        // }, 3000);
         window.location.reload();
     }
 
